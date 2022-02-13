@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"go-microservices-banking-application/errs"
+	"banking/errs"
 	"strings"
 )
 

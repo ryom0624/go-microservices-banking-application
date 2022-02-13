@@ -1,12 +1,12 @@
 package app
 
 import (
+	"banking/domain"
+	"banking/service"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
-	"go-microservices-banking-application/domain"
-	"go-microservices-banking-application/service"
 	"log"
 	"net/http"
 	"os"

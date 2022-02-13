@@ -1,8 +1,8 @@
 package domain
 
 import (
-	"go-microservices-banking-application/dto"
-	"go-microservices-banking-application/errs"
+	"banking/dto"
+	"banking/errs"
 )
 
 // port

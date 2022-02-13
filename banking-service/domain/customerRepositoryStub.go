@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"go-microservices-banking-application/errs"
+	"banking/errs"
 )
 
 var _ CustomerRepository = (*CustomerRepositoryStub)(nil)

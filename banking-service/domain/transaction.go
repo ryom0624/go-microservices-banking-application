@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"go-microservices-banking-application/dto"
+	"banking/dto"
 )
 
 const WITHDRAWAL = "withdraw"

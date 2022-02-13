@@ -1,10 +1,10 @@
 package domain
 
 import (
+	"banking/errs"
+	"banking/logger"
 	"database/sql"
 	"github.com/jmoiron/sqlx"
-	"go-microservices-banking-application/errs"
-	"go-microservices-banking-application/logger"
 	"strconv"
 )
 

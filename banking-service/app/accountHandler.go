@@ -1,10 +1,10 @@
 package app
 
 import (
+	"banking/dto"
+	"banking/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"go-microservices-banking-application/dto"
-	"go-microservices-banking-application/service"
 	"net/http"
 )
 

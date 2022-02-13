@@ -1,8 +1,8 @@
 package app
 
 import (
+	"banking/service"
 	"github.com/gorilla/mux"
-	"go-microservices-banking-application/service"
 	"net/http"
 )
 

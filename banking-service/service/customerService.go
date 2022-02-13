@@ -1,9 +1,9 @@
 package service
 
 import (
-	"go-microservices-banking-application/domain"
-	"go-microservices-banking-application/dto"
-	"go-microservices-banking-application/errs"
+	"banking/domain"
+	"banking/dto"
+	"banking/errs"
 )
 
 const (
