@@ -1,8 +1,8 @@
 package app
 
 import (
-	"local.packages/errs"
-	"local.packages/logger"
+	"local.packages/lib/errs"
+	"local.packages/lib/logger"
 )
 
 func Start() {

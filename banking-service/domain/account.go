@@ -2,7 +2,7 @@ package domain
 
 import (
 	"banking/dto"
-	"local.packages/errs"
+	"local.packages/lib/errs"
 )
 
 type Account struct {

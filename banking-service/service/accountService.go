@@ -3,7 +3,7 @@ package service
 import (
 	"banking/domain"
 	"banking/dto"
-	"local.packages/errs"
+	"local.packages/lib/errs"
 	"time"
 )
 

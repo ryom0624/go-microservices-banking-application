@@ -3,8 +3,8 @@ package domain
 import (
 	"database/sql"
 	"github.com/jmoiron/sqlx"
-	"local.packages/errs"
-	"local.packages/logger"
+	"local.packages/lib/errs"
+	"local.packages/lib/logger"
 	"strconv"
 )
 

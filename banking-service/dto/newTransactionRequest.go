@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"local.packages/errs"
+	"local.packages/lib/errs"
 	"strings"
 )
 

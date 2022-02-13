@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"local.packages/errs"
+	"local.packages/lib/errs"
 )
 
 var _ CustomerRepository = (*CustomerRepositoryStub)(nil)

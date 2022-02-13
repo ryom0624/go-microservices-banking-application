@@ -1,5 +1,4 @@
-module local.packages/logger
-
+module local.package/lib
 
 go 1.16
 
