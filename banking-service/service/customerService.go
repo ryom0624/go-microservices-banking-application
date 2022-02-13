@@ -3,7 +3,7 @@ package service
 import (
 	"banking/domain"
 	"banking/dto"
-	"banking/errs"
+	"local.packages/errs"
 )
 
 const (

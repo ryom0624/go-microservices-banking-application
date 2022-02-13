@@ -2,7 +2,7 @@ package domain
 
 import (
 	"banking/dto"
-	"banking/errs"
+	"local.packages/errs"
 )
 
 // port

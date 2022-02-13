@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"auth/app"
 )
 
 func main() {
-	fmt.Println("authentication application")
+	app.Start()
 }

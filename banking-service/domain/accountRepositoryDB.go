@@ -1,10 +1,10 @@
 package domain
 
 import (
-	"banking/errs"
-	"banking/logger"
 	"database/sql"
 	"github.com/jmoiron/sqlx"
+	"local.packages/errs"
+	"local.packages/logger"
 	"strconv"
 )
 

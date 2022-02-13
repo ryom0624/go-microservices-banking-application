@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"banking/errs"
+	"local.packages/errs"
 )
 
 var _ CustomerRepository = (*CustomerRepositoryStub)(nil)

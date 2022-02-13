@@ -1,11 +1,11 @@
 package domain
 
 import (
-	"banking/errs"
-	"banking/logger"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	"local.packages/errs"
+	"local.packages/logger"
 )
 
 type CustomerRepositoryDB struct {

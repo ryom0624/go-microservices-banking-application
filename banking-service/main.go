@@ -2,7 +2,7 @@ package main
 
 import (
 	"banking/app"
-	"banking/logger"
+	"local.packages/logger"
 )
 
 func main() {
