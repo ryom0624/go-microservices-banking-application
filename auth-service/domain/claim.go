@@ -40,3 +40,38 @@ func (c AccessTokenClaims) RefreshTokenClaims() RefreshTokenClaims {
 		},
 	}
 }
+
+func (c AccessTokenClaims) IsUserRole() bool {
+	return c.Role == "user"
+}
+
+func (c AccessTokenClaims) IsAdminRole() bool {
+	return c.Role == "admin"
+}
+
+func (c AccessTokenClaims) IsValidCustomerID(customerID string) bool {
+	return c.CustomerID == customerID
+}
+
+func (c AccessTokenClaims) IsValidAccountID(accountID string) bool {
+	if accountID == "" {
+		return true
+	}
+
+	for _, a := range c.Accounts {
+		if a == accountID {
+			return true
+		}
+	}
+	return false
+}
+
+func (c AccessTokenClaims) IsRequestVerifiedWithTokenClaims(params map[string]string) bool {
+	if c.CustomerID != params["customer_id"] {
+		return false
+	}
+	if !c.IsValidAccountID(params["account_id"]) {
+		return false
+	}
+	return true
+}

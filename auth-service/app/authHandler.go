@@ -28,3 +28,38 @@ func (h authHandler) Login(w http.ResponseWriter, req *http.Request) {
 	}
 	writeResponse(w, http.StatusOK, token)
 }
+
+func (h authHandler) NotImplementedHandler(w http.ResponseWriter, r *http.Request) {
+	writeResponse(w, http.StatusNotImplemented, "not implement")
+}
+
+func (h authHandler) Verify(w http.ResponseWriter, r *http.Request) {
+	urlParams := make(map[string]string)
+
+	for k := range r.URL.Query() {
+		urlParams[k] = r.URL.Query().Get(k)
+	}
+
+	if urlParams["token"] == "" {
+		writeResponse(w, http.StatusForbidden, notAuthorizedResponse("missing token"))
+		return
+	}
+	appErr := h.service.Verify(urlParams)
+	if appErr != nil {
+		writeResponse(w, appErr.Code, notAuthorizedResponse(appErr.Message))
+		return
+	}
+	writeResponse(w, http.StatusOK, authorizedResponse())
+
+}
+
+func authorizedResponse() map[string]bool {
+	return map[string]bool{"isAuthorized": true}
+}
+
+func notAuthorizedResponse(message string) map[string]interface{} {
+	return map[string]interface{}{
+		"isAuthorized": false,
+		"message":      message,
+	}
+}

@@ -19,12 +19,14 @@ func Start() {
 	sanityCheck()
 
 	authRepositoryDB := domain.NewAuthRepositoryDB(GetDBClient())
-	authService := service.NewAuthService(authRepositoryDB)
+	authService := service.NewAuthService(authRepositoryDB, domain.GetRolePermissions())
 
 	router := mux.NewRouter()
 
 	at := authHandler{service: authService}
 	router.HandleFunc("/auth/login", at.Login).Methods(http.MethodPost)
+	router.HandleFunc("/auth/register", at.NotImplementedHandler).Methods(http.MethodPost)
+	router.HandleFunc("/auth/verify", at.Verify).Methods(http.MethodGet)
 
 	addr := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
