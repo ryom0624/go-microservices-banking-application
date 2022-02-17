@@ -26,7 +26,7 @@ func (r NewTransactionRequest) IsTransactionTypeDeposit() bool {
 }
 
 func (r NewTransactionRequest) Validate() *errs.AppError {
-	if strings.ToLower(r.TransactionType) != "withdraw" && strings.ToLower(r.TransactionType) != "deposit" {
+	if !r.IsTransactionTypeWithdrawal() && !r.IsTransactionTypeDeposit() {
 		return errs.NewValidationError("choose deposit or withdraw")
 	}
 	if r.Amount < 0 {
