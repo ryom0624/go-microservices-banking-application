@@ -21,7 +21,7 @@ type AccessTokenClaims struct {
 
 type RefreshTokenClaims struct {
 	TokenType  string   `json:"token_type"`
-	CustomerId string   `json:"cid"`
+	CustomerID string   `json:"cid"`
 	Accounts   []string `json:"accounts"`
 	Username   string   `json:"un"`
 	Role       string   `json:"role"`
@@ -31,12 +31,24 @@ type RefreshTokenClaims struct {
 func (c AccessTokenClaims) RefreshTokenClaims() RefreshTokenClaims {
 	return RefreshTokenClaims{
 		TokenType:  "refresh_token",
-		CustomerId: c.CustomerID,
+		CustomerID: c.CustomerID,
 		Accounts:   c.Accounts,
 		Username:   c.Username,
 		Role:       c.Role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(RefreshTokenDuration).Unix(),
+		},
+	}
+}
+
+func (c RefreshTokenClaims) AccessTokenClaims() AccessTokenClaims {
+	return AccessTokenClaims{
+		CustomerID: c.CustomerID,
+		Accounts:   c.Accounts,
+		Username:   c.Username,
+		Role:       c.Role,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(AccessTokenDuration).Unix(),
 		},
 	}
 }

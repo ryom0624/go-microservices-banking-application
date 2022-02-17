@@ -12,6 +12,7 @@ import (
 type AuthService interface {
 	Login(request dto.LoginRequest) (*dto.LoginResponse, *errs.AppError)
 	Verify(urlParams map[string]string) *errs.AppError
+	Refresh(request dto.RefreshTokenRequest) (*dto.LoginResponse, *errs.AppError)
 }
 
 type DefaultAuthService struct {
@@ -72,6 +73,25 @@ func (d DefaultAuthService) Login(req dto.LoginRequest) (*dto.LoginResponse, *er
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}, nil
+}
+func (d DefaultAuthService) Refresh(req dto.RefreshTokenRequest) (*dto.LoginResponse, *errs.AppError) {
+	vErr := req.IsAccessTokenValid()
+	if vErr == nil {
+		return nil, errs.NewAuthenticationError("cannot generate a new access token util the current one expires")
+	}
+	if vErr.Errors == jwt.ValidationErrorExpired {
+		var appError *errs.AppError
+		if appError = d.repo.RefreshTokenExists(req.RefreshToken); appError != nil {
+			return nil, appError
+		}
+		var accessToken string
+		if accessToken, appError = domain.NewAccessTokenFromRefreshToken(req.RefreshToken); appError != nil {
+			return nil, appError
+		}
+		return &dto.LoginResponse{AccessToken: accessToken}, nil
+	}
+
+	return nil, errs.NewAuthenticationError("invalid token")
 }
 
 func NewAuthService(repo domain.AuthRepository, permissions domain.RolePermissions) AuthService {

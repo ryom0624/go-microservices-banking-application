@@ -10,7 +10,23 @@ import (
 type AuthRepository interface {
 	FindBy(string, string) (*Login, *errs.AppError)
 	GenerateAndSaveRefreshTokenToStore(AuthToken) (string, *errs.AppError)
-	RefreshTokenExists()
+	RefreshTokenExists(refreshToken string) *errs.AppError
+}
+
+func (a AuthRepositoryDB) RefreshTokenExists(refreshToken string) *errs.AppError {
+	sqlSelect := `SELECT refresh_token FROM refresh_token_store where refresh_token = ?`
+	var token string
+	err := a.client.Get(&token, sqlSelect, refreshToken)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return errs.NewAuthenticationError("refresh token no registered in the store")
+		}
+		if err != nil {
+			logger.Error("Unexpected database error " + err.Error())
+			return errs.NewUnexpectedError("unexpected database error")
+		}
+	}
+	return nil
 }
 
 func (a AuthRepositoryDB) FindBy(username string, password string) (*Login, *errs.AppError) {
@@ -48,11 +64,6 @@ func (a AuthRepositoryDB) GenerateAndSaveRefreshTokenToStore(authToken AuthToken
 	return refreshToken, nil
 }
 
-func (a AuthRepositoryDB) RefreshTokenExists() {
-	// TODO implement me
-	panic("implement me")
-}
-
 type AuthRepositoryDB struct {
 	client *sqlx.DB
 }
@@ -73,7 +84,7 @@ func (a AuthRepositoryStub) GenerateAndSaveRefreshTokenToStore(accessToken AuthT
 	panic("implement me")
 }
 
-func (a AuthRepositoryStub) RefreshTokenExists() {
+func (a AuthRepositoryStub) RefreshTokenExists(refreshToken string) *errs.AppError {
 	// TODO implement me
 	panic("implement me")
 }
